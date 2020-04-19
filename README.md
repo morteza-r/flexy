@@ -152,7 +152,7 @@ user := User{
 err := client.Query().
     Table("users").
     Model(&user).
-    Get()
+    Delete()
 
 if err != nil {
     fmt.Println(err)
