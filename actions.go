@@ -20,6 +20,16 @@ func (q *Query) Get() (err error) {
 	return
 }
 
+func (q *Query) Exist() (err error) {
+	q.QType = "exist"
+	err = q.CallApi()
+	if err != nil {
+		return
+	}
+
+	return
+}
+
 func (q *Query) Update() (err error) {
 	q.QType = "update"
 	err = q.CallApi()
