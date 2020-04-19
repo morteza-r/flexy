@@ -12,7 +12,8 @@ func main() {
 		addExample(client, i)
 	}
 	getExample(client, 2)
-	multiGetExample(client)
+	existExample(client, 44)
+	//multiGetExample(client)
 }
 
 func addExample(client *flexy.Client, i float64) {
@@ -23,7 +24,7 @@ func addExample(client *flexy.Client, i float64) {
 		Family: RandStringBytes(10),
 		Active: false,
 		Account: Account{
-			Name: RandStringBytes(5),
+			Name:   RandStringBytes(5),
 			Credit: 1200,
 		},
 	}
@@ -56,6 +57,22 @@ func getExample(client *flexy.Client, id float64) {
 		return
 	}
 	jsonPrint(user)
+}
+
+func existExample(client *flexy.Client, id float64) {
+	user := User{
+		Id: id,
+	}
+	err, ok := client.Query().
+		Table("users").
+		Model(&user).
+		Exist()
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	jsonPrint(ok)
 }
 
 func multiGetExample(client *flexy.Client) {
