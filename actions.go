@@ -20,10 +20,12 @@ func (q *Query) Get() (err error) {
 	return
 }
 
-func (q *Query) Exist() (err error) {
+func (q *Query) Exist() (err error, ok bool) {
+	ok = true
 	q.QType = "exist"
 	err = q.CallApi()
 	if err != nil {
+		ok = false
 		return
 	}
 
