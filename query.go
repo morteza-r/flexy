@@ -3,6 +3,7 @@ package flexy
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"github.com/mitchellh/mapstructure"
 	"io/ioutil"
 	"net/http"
@@ -99,6 +100,11 @@ func (q *Query) CallApi() (err error) {
 	var res RestResponse
 	err = json.Unmarshal(body, &res)
 	if err != nil {
+		return
+	}
+
+	if res.Status == false {
+		err = errors.New(res.Message)
 		return
 	}
 
