@@ -46,6 +46,22 @@ if err != nil {
 }
 ```
 
+
+
+### Check doc exist
+```go
+user := User{
+    Id:       1,
+}
+
+_, ok := client.Query().
+    Table("users").
+    Model(&user).
+    Exist()
+
+fmt.Println(ok)
+```
+
 ### Update a doc 
 Only provided fields will update. In this example only active field will update to true and other fields will remain same.
 
