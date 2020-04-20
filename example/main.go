@@ -66,7 +66,7 @@ func existExample(client *flexy.Client, id float64) {
 	err, ok := client.Query().
 		Table("users").
 		Model(&user).
-		Exist()
+		Exists()
 
 	if err != nil {
 		fmt.Println(err)

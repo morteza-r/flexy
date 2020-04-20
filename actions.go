@@ -20,9 +20,9 @@ func (q *Query) Get() (err error) {
 	return
 }
 
-func (q *Query) Exist() (err error, ok bool) {
+func (q *Query) Exists() (err error, ok bool) {
 	ok = true
-	q.QType = "exist"
+	q.QType = "exists"
 	err = q.CallApi()
 	if err != nil {
 		ok = false
