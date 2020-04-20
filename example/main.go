@@ -12,7 +12,9 @@ func main() {
 		addExample(client, i)
 	}
 	getExample(client, 2)
-	existExample(client, 44)
+	getWhereExample(client)
+	getWhereExample2(client)
+	//existExample(client, 44)
 	//multiGetExample(client)
 }
 
@@ -57,6 +59,40 @@ func getExample(client *flexy.Client, id float64) {
 		return
 	}
 	jsonPrint(user)
+}
+
+func getWhereExample(client *flexy.Client) {
+	var users []User
+
+	err := client.Query().
+		Table("users").
+		Model(&users).
+		Where("name", "==", "morteza").
+		Get()
+
+	if err != nil {
+		fmt.Println("getWhereExample err", err)
+		return
+	}
+	fmt.Println("getWhereExample")
+	jsonPrint(users)
+}
+
+func getWhereExample2(client *flexy.Client) {
+	var users []User
+
+	err := client.Query().
+		Table("users").
+		Model(&users).
+		Where("family", "==", "rsWxPLDnJO").
+		Get()
+
+	if err != nil {
+		fmt.Println("getWhereExample err", err)
+		return
+	}
+	fmt.Println("getWhereExample")
+	jsonPrint(users)
 }
 
 func existExample(client *flexy.Client, id float64) {

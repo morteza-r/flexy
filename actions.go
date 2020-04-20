@@ -1,5 +1,9 @@
 package flexy
 
+import (
+	"reflect"
+)
+
 func (q *Query) Add() (err error) {
 	q.QType = "add"
 	err = q.CallApi()
@@ -10,8 +14,23 @@ func (q *Query) Add() (err error) {
 	return
 }
 
+func (q *Query) All() (err error) {
+	q.QType = "all"
+	err = q.CallApi()
+	if err != nil {
+		return
+	}
+
+	return
+}
+
 func (q *Query) Get() (err error) {
-	q.QType = "get"
+	s := reflect.Indirect(reflect.ValueOf(q.QModel))
+	if s.Kind() == reflect.Slice {
+		q.QType = "mget"
+	} else {
+		q.QType = "get"
+	}
 	err = q.CallApi()
 	if err != nil {
 		return
