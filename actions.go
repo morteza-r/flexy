@@ -40,13 +40,15 @@ func (q *Query) Get() (err error) {
 }
 
 func (q *Query) Exists() (err error, ok bool) {
-	ok = true
+	ok = false
+	q.QModel = &ok
 	q.QType = "exists"
 	err = q.CallApi()
 	if err != nil {
 		ok = false
 		return
 	}
+	ok = *q.QModel.(*bool)
 
 	return
 }
